@@ -38,7 +38,7 @@ const abortable2: Abortable<number> = abortable<number>((resovle, reject) => {
   setTimeout(reject, 2000)
 })
 
-abortable2.then(() => console.log(123)).catch(console.log) // Error: Promise cancelled
+abortable2.then(() => console.log(123)).catch(console.log) // Error: Promise aborted
 abortable2.abort()
 
 
