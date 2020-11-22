@@ -19,7 +19,7 @@ npm install pabortable
 
 ```typescript
 // test.ts
-import { fetch, abortable } from './abortable'
+import { fetch, abortable } from 'pabortable'
 
 const abortable1 = abortable<number>((resovle, reject) => {
   setTimeout(() => resovle(123), 10)
