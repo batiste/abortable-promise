@@ -1,10 +1,18 @@
-# Abortable library
+# Abortable Promises library
 
 This library extends the Promise prototype to include an abort
 method that allows you to reject a promise programmatically.
 
 It is especially useful with the fetch API in conjunction with
 the new AbortController API.
+
+## Install
+
+```bash
+npm install pabortable
+```
+
+## Usage examples
 
 
 ```javascript
