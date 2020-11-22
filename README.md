@@ -6,6 +6,8 @@ method that allows you to reject a promise programmatically.
 It is especially useful with the fetch API in conjunction with
 the new AbortController API.
 
+The library is very small and is implemented in TypeScript.
+
 ## Install
 
 ```bash
