@@ -39,4 +39,4 @@ function abortableFetch<T>(input: RequestInfo, init?: RequestInit) {
   return abortable
 }
 
-export { abortableFetch as fetch, abortable }
+export { abortableFetch as fetch, abortable, Abortable }
