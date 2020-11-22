@@ -15,7 +15,8 @@ npm install pabortable
 ## Usage examples
 
 
-```javascript
+```typescript
+// test.ts
 import { fetch, abortable } from './abortable'
 
 const abortable1 = abortable<number>((resovle, reject) => {
