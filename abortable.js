@@ -1,4 +1,17 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -11,7 +24,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.abortable = exports.fetch = void 0;
+exports.AbortedPromise = exports.Abortable = exports.abortable = exports.fetch = void 0;
 var abort_controller_1 = require("abort-controller");
 var node_fetch_1 = require("node-fetch");
 var Abortable = /** @class */ (function () {
@@ -28,6 +41,15 @@ var Abortable = /** @class */ (function () {
     };
     return Abortable;
 }());
+exports.Abortable = Abortable;
+var AbortedPromise = /** @class */ (function (_super) {
+    __extends(AbortedPromise, _super);
+    function AbortedPromise() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return AbortedPromise;
+}(Error));
+exports.AbortedPromise = AbortedPromise;
 function abortable(executor) {
     var r;
     var p = new Promise(function (resolve, reject) {
@@ -35,7 +57,7 @@ function abortable(executor) {
         executor(resolve, reject);
     });
     p.abort = function (reason) {
-        r(reason || new Error('Promise cancelled'));
+        r(reason || new AbortedPromise('Promise aborted'));
         return p;
     };
     return p;

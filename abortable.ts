@@ -14,6 +14,8 @@ class Abortable<T> implements Promise<T> {
   }
 }
 
+class AbortedPromise extends Error {}
+
 function abortable<T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void) {
   let r;
   const p = new Promise<T>((resolve, reject) => {
@@ -21,7 +23,7 @@ function abortable<T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, 
     executor(resolve, reject)
   }) as Abortable<T>
   p.abort = (reason) => {
-    r(reason || new Error('Promise cancelled'))
+    r(reason || new AbortedPromise('Promise aborted'))
     return p
   }
   return p
@@ -39,4 +41,4 @@ function abortableFetch<T>(input: RequestInfo, init?: RequestInit) {
   return abortable
 }
 
-export { abortableFetch as fetch, abortable, Abortable }
+export { abortableFetch as fetch, abortable, Abortable, AbortedPromise }
