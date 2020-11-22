@@ -6,10 +6,9 @@ method that allows you to reject a promise programmatically.
 It is especially useful with the fetch API in conjunction with
 the new AbortController API. 
 
-When you call the abort method a Abortable, the underlying Promise 
-is simply rejected and settled. So you can use an Abortable in the exact same
-way you would use a Promise, .then, .catch, and async/await/try/catch works
-just as expected.
+When you call the abort method on an Abortable the underlying Promise 
+is simply rejected and settled. You can use an Abortable in the exact same
+way you would use a Promise.
 
 The library is very small and is implemented in TypeScript.
 
