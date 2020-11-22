@@ -1,0 +1,20 @@
+{
+  "name": "abortable",
+  "version": "1.0.0",
+  "description": "Abortable promises",
+  "main": "abortable.js",
+  "scripts": {
+    "test": "ts-node test.ts",
+    "compile": "tsc abortable.ts --lib ES7,DOM"
+  },
+  "author": "Batiste Bieler",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.1.2",
+    "ts-node": "^9.0.0"
+  },
+  "dependencies": {
+    "abort-controller": "^3.0.0",
+    "node-fetch": "^2.6.1"
+  }
+}

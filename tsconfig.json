@@ -1,0 +1,6 @@
+// tsconfig.json
+{
+  "compilerOptions": {
+    "lib": [ "ES7", "DOM" ]
+  }
+}
