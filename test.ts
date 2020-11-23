@@ -6,14 +6,26 @@ const abortable1: Abortable<number> = abortable<number>((resolve, reject) => {
   setTimeout(reject, 20)
 })
 
-abortable1.then((result) => console.log(result)).catch(console.log) // 123, because no abort occurs
+abortable1.then((v) => {
+  if (v === 123) {
+    console.log('ok')
+  } else {
+    throw new Error('Wrong value')
+  }
+}).catch(() => { throw new Error('Aborted promise expected') })
 
 const abortable2: Abortable<number> = abortable<number>((resolve, reject) => {
   setTimeout(() => resolve(123), 1000)
   setTimeout(reject, 2000)
 })
 
-abortable2.then(() => console.log(123)).catch(console.log) // Error: Promise cancelled
+abortable2.then(() => console.log(123)).catch((e) => {
+  if(e.message === 'Promise aborted') {
+    console.log('ok')
+  } else {
+    throw new Error('Aborted promise expected')
+  }
+})
 abortable2.abort()
 
 
