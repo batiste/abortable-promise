@@ -71,10 +71,10 @@ import { fetch, abortable, Abortable, Abortables } from 'pabortable'
 class MyComponent {
 
   abortables = new Abortables<any>()
-  data: Abortable<Response>
+  request: Abortable<Response>
 
   onInit() {
-    abortables.add(
+    this.abortables.add(
       abortable<number>((resolve, reject) => {
         setTimeout(() => resolve(123), 1000)
       })
@@ -84,14 +84,15 @@ class MyComponent {
   }
 
   async fetchData() {
-    this.data = fetch<Response>('http://www.example.com')
-    abortables.add(this.data)
-    const response = await this.data
-    console.log(response)
+    this.request = fetch<Response>('http://api.example.com')
+    this.abortables.add(this.request)
+    const response = await this.request
+    const body = await response.json()
+    console.log(body)
   }
 
   onDestroy() {
-    abortables.abort()
+    this.abortables.abort()
   }
 }
 ```
