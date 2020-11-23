@@ -1,15 +1,15 @@
 import { fetch, abortable, Abortable } from './abortable'
 
 
-const abortable1: Abortable<number> = abortable<number>((resovle, reject) => {
-  setTimeout(() => resovle(123), 10)
+const abortable1: Abortable<number> = abortable<number>((resolve, reject) => {
+  setTimeout(() => resolve(123), 10)
   setTimeout(reject, 20)
 })
 
 abortable1.then((result) => console.log(result)).catch(console.log) // 123, because no abort occurs
 
-const abortable2: Abortable<number> = abortable<number>((resovle, reject) => {
-  setTimeout(() => resovle(123), 1000)
+const abortable2: Abortable<number> = abortable<number>((resolve, reject) => {
+  setTimeout(() => resolve(123), 1000)
   setTimeout(reject, 2000)
 })
 
