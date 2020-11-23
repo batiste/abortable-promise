@@ -66,7 +66,7 @@ fetchAsyncAwait() // output: ok
 Typical use in a framework such as Angular or React
 
 ```typescript
-import { fetch, abortable, Abortable, Abortables } from './abortable'
+import { fetch, abortable, Abortable, Abortables } from 'pabortable'
 
 class MyComponent {
 
