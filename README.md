@@ -60,3 +60,38 @@ async function fetchAsyncAwait() {
 
 fetchAsyncAwait() // output: ok
 ```
+
+## Use in a Component based framework
+
+Typical use in a framework such as Angular or React
+
+```typescript
+import { fetch, abortable, Abortable, Abortables } from './abortable'
+
+class MyComponent {
+
+  abortables = new Abortables<any>()
+  data: Abortable<Response>
+
+  onInit() {
+    abortables.add(
+      abortable<number>((resolve, reject) => {
+        setTimeout(() => resolve(123), 1000)
+      })
+    )
+
+    this.fetchData()
+  }
+
+  async fetchData() {
+    this.data = fetch<Response>('http://www.example.com')
+    abortables.add(this.data)
+    const response = await this.data
+    console.log(response)
+  }
+
+  onDestroy() {
+    abortables.abort()
+  }
+}
+```

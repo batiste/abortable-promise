@@ -1,4 +1,4 @@
-import { fetch, abortable, Abortable } from './abortable'
+import { fetch, abortable, Abortable, Abortables } from './abortable'
 
 
 const abortable1: Abortable<number> = abortable<number>((resolve, reject) => {
@@ -45,3 +45,27 @@ async function fetchAsyncAwait() {
 }
 
 fetchAsyncAwait() // output: ok
+
+
+const abortables = new Abortables()
+
+const a = abortable((resolve, reject) => {
+  setTimeout(() => resolve(123), 100)
+})
+
+a.catch((e) => {
+  if(e.message === 'Promise aborted') {
+    console.log('ok')
+  } else {
+    throw new Error('Aborted promise expected')
+  }
+})
+
+const b = abortable((resolve, reject) => {
+  setTimeout(() => resolve(123), 100)
+})
+
+abortables.add(a)
+abortables.add(b)
+
+abortables.abort()

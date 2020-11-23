@@ -41,4 +41,22 @@ function abortableFetch<T>(input: RequestInfo, init?: RequestInit) {
   return abortable
 }
 
-export { abortableFetch as fetch, abortable, Abortable, AbortedPromiseError }
+class Abortables<T> {
+  abortables: Abortable<T>[] = []
+
+  constructor(a: Abortable<T>[] = []) {
+    this.abortables = a
+  }
+
+  add(a: Abortable<T>): Abortable<T> {
+    this.abortables.push(a)
+    return a
+  }
+
+  abort(silent=true) {
+    silent && this.abortables.forEach(a => a.catch(() => {}))
+    this.abortables.forEach(a => a.abort())
+  }
+}
+
+export { abortableFetch as fetch, abortable, Abortable, AbortedPromiseError, Abortables }
